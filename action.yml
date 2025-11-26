@@ -1,0 +1,38 @@
+name: 'GCP Pub/Sub Create Topic'
+description: 'Create Google Cloud Pub/Sub topics'
+author: 'predictr-io'
+
+branding:
+  icon: 'plus-circle'
+  color: 'blue'
+
+inputs:
+  project-id:
+    description: 'GCP project ID'
+    required: true
+  topic-name:
+    description: 'Pub/Sub topic name (not the full path, just the topic name)'
+    required: true
+  skip-if-exists:
+    description: 'Skip with success if topic already exists (default: false)'
+    required: false
+    default: 'false'
+  labels:
+    description: 'Topic labels as JSON object (e.g., {"env": "prod", "team": "data"})'
+    required: false
+  kms-key-name:
+    description: 'Cloud KMS key name for encryption (full resource name)'
+    required: false
+  message-retention-duration:
+    description: 'Message retention duration (e.g., "7d", "600s"). Default is 7 days'
+    required: false
+
+outputs:
+  topic-name:
+    description: 'Full topic name (projects/{project}/topics/{topic})'
+  created:
+    description: 'Whether the topic was newly created (true) or already existed (false)'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
